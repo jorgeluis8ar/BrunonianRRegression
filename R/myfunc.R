@@ -59,17 +59,8 @@ estimate_beta <- function(y, X) {
 
 
 brunonian_theme <- function() {
-  ggplot2::theme_minimal(base_size = 12, base_family = "mono") +
-    ggplot2::theme(
-      plot.background = ggplot2::element_rect(fill = "#f7f3e9", color = NA),
+  theme(plot.background = ggplot2::element_rect(fill = "#f7f3e9", color = NA),
       panel.background = ggplot2::element_rect(fill = "#fffaf0", color = NA),
       panel.grid.major = ggplot2::element_line(color = "#d8c9a8", linewidth = 0.4),
-      panel.grid.minor = ggplot2::element_blank(),
-      axis.text = ggplot2::element_text(color = "#2f2a1f"),
-      axis.title = ggplot2::element_text(color = "#4a3f2b", face = "bold"),
-      plot.title = ggplot2::element_text(color = "#6b2f1a", face = "bold", size = 15),
-      legend.position = "bottom",
-      legend.background = ggplot2::element_rect(fill = "#f0e6d2", color = "#b89f6b"),
-      plot.margin = ggplot2::margin(12, 12, 12, 12)
-    )
+      panel.grid.minor = ggplot2::element_blank()) 
 }
