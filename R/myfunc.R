@@ -12,3 +12,47 @@ myfunc <- function(a, b) {
   result <- a * b + a
   return(result)
 }
+
+#' My first function
+#'
+#' @param y A numerical column vector.
+#' @param X Also a numerical matrix.
+#'
+#' @return A numerical vector of estimated coefficients using OLS as the estimator.
+#' @export
+#'
+#' @examples
+#' estimate_beta(y = mtcars$mpg, X = mtcars[,c("hp","wt")])
+estimate_beta <- function(y, X) {
+  # Making sure y is a column vector
+  if (is.vector(y)) {
+    y <- matrix(y, ncol = 1)
+  } else {
+    y <- as.matrix(y)
+  }
+
+  # Coerce X to matrix
+  X <- as.matrix(X)
+
+  # Checks
+  if (!is.numeric(y) || !is.numeric(X)) {
+    stop("Both y and X must be numeric.")
+  }
+  if (ncol(y) != 1) {
+    stop("y must be n x 1.")
+  }
+  if (nrow(y) != nrow(X)) {
+    stop("y and X must have the same number of rows.")
+  }
+
+  XtX <- t(X) %*% X
+  Xty <- t(X) %*% y
+
+  # Better than det()==0 for numerical stability
+  if (rcond(XtX) < .Machine$double.eps) {
+    stop("X'X is singular or near-singular (multicollinearity).")
+  }
+
+  beta_hat <- solve(XtX) %*% Xty
+  return(beta_hat)
+}
